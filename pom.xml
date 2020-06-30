@@ -29,6 +29,25 @@
         </developer>
     </developers>
 
+    <scm>
+        <connection>scm:git:git://github.com/RedHatInsights/connect-transforms.git</connection>
+        <developerConnection>scm:git:git@github.com:RedHatInsights/connect-transforms.git</developerConnection>
+        <url>https://github.com/RedHatInsights/connect-transforms</url>
+        <tag>HEAD</tag>
+    </scm>
+
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
@@ -38,9 +57,13 @@
         <version.kafka>2.0.0</version.kafka>
 
         <version.compiler.plugin>3.8.1</version.compiler.plugin>
+        <version.deploy.plugin>2.8.2</version.deploy.plugin>
+        <version.gitexe.provider>1.9.5</version.gitexe.provider>
         <version.gpg.plugin>1.6</version.gpg.plugin>
         <version.javadoc.plugin>3.2.0</version.javadoc.plugin>
+        <version.nexus.plugin>1.6.7</version.nexus.plugin>
         <version.pmd.plugin>3.13.0</version.pmd.plugin>
+        <version.release.plugin>2.5.3</version.release.plugin>
         <version.source.plugin>3.2.0</version.source.plugin>
         <version.surefire.plugin>2.22.2</version.surefire.plugin>
     </properties>
@@ -136,6 +159,21 @@
                   </execution>
                 </executions>
             </plugin>
+
+
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${version.deploy.plugin}</version>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -195,6 +233,38 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <version>${version.release.plugin}</version>
+                        <configuration>
+                            <localCheckout>true</localCheckout>
+                            <pushChanges>false</pushChanges>
+                            <mavenExecutorId>forked-path</mavenExecutorId>
+                            <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.maven.scm</groupId>
+                                <artifactId>maven-scm-provider-gitexe</artifactId>
+                                <version>${version.gitexe.provider}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+
+
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>${version.nexus.plugin}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
