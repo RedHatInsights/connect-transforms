@@ -29,9 +29,9 @@ public class FilterFieldsTest extends AbstractKeyValueTransformationTest {
     }
 
     @Test
-    public void testFilterFieldsBlacklist() {
+    public void testFilterFieldsDenylist() {
         final List<String> fieldsToRemove = Arrays.asList("key_to_remove", "key_to_remove2");
-        final Map<String, Object> props = Map.of("field", "field", "blacklist", fieldsToRemove);
+        final Map<String, Object> props = Map.of("field", "field", "denylist", fieldsToRemove);
 
         final Map<String, Object> field = new HashMap<>();
         field.put("key_to_keep", "");
@@ -56,9 +56,9 @@ public class FilterFieldsTest extends AbstractKeyValueTransformationTest {
     }
 
     @Test
-    public void testFilterFieldsWhitelist() {
+    public void testFilterFieldsAllowlist() {
         final List<String> fieldsToKeep = Arrays.asList("key_to_keep", "key_to_keep2");
-        final Map<String, Object> props = Map.of("field", "field", "whitelist", fieldsToKeep);
+        final Map<String, Object> props = Map.of("field", "field", "allowlist", fieldsToKeep);
 
         final Map<String, Object> field = new HashMap<>();
         field.put("key_to_keep", "");

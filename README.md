@@ -104,15 +104,15 @@ Example 2
 
 ## FilterFields
 
-Removes fields specified by the whitelist or blacklist.
+Removes fields specified by the allowlist or denylist.
 
 ### Configuration properties
 
 |Name|Description|Type|Default|Valid values|Importance|
 |---|---|---|---|---|---|
 |`field`|Name of the field to remove keys from|string|-|Any valid field name|HIGH
-|`whitelist`|If set, keys not in this list will be removed from the field|list|-|Any valid field name|HIGH
-|`blacklist`|If set, keys in this list will be removed from the field|list|-|Any valid field name|HIGH
+|`allowlist`|If set, keys not in this list will be removed from the field|list|-|Any valid field name|HIGH
+|`denylist`|If set, keys in this list will be removed from the field|list|-|Any valid field name|HIGH
 
 ### Example
 
@@ -121,7 +121,7 @@ Assume the following configuration:
 ```json
 "transforms.filterFields.type": "com.redhat.insights.kafka.connect.transforms.FilterFields$Value",
 "transforms.filterFields.field": "data",
-"transforms.filterFields.blacklist": "key1, key2",
+"transforms.filterFields.denylist": "key1, key2",
 ```
 
 * Before: `{"data":{"key1":"value1", "key2":"value2", "key3":"value3"}}`
