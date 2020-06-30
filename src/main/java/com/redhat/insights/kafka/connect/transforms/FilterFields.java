@@ -12,20 +12,20 @@ public abstract class FilterFields<T extends ConnectRecord<T>> extends AbstractT
     private static final Logger LOG = LoggerFactory.getLogger(FilterFields.class);
 
     private static final String CONFIG_FIELD = "field";
-    private static final String CONFIG_BLACKLIST = "blacklist";
-    private static final String CONFIG_WHITELIST = "whitelist";
+    private static final String CONFIG_DENYLIST = "denylist";
+    private static final String CONFIG_ALLOWLIST = "allowlist";
 
-    private volatile List<String> blacklist;
-    private volatile List<String> whitelist;
+    private volatile List<String> denylist;
+    private volatile List<String> allowlist;
     private String fieldName;
 
     public FilterFields () {
         super(new ConfigDef()
             .define(CONFIG_FIELD, ConfigDef.Type.STRING, ConfigDef.Importance.HIGH,
                 "Name of the field whose keys will be filtered")
-            .define(CONFIG_BLACKLIST, ConfigDef.Type.LIST, Collections.emptyList(), ConfigDef.Importance.HIGH,
+            .define(CONFIG_DENYLIST, ConfigDef.Type.LIST, Collections.emptyList(), ConfigDef.Importance.HIGH,
                 "Keys that will be dropped from the field")
-            .define(CONFIG_WHITELIST, ConfigDef.Type.LIST, Collections.emptyList(), ConfigDef.Importance.HIGH,
+            .define(CONFIG_ALLOWLIST, ConfigDef.Type.LIST, Collections.emptyList(), ConfigDef.Importance.HIGH,
                 "Keys that will be kept in the field")
         );
     }
@@ -33,8 +33,8 @@ public abstract class FilterFields<T extends ConnectRecord<T>> extends AbstractT
     @Override
     public void configure(Map<String, ?> configs, AbstractConfig config) {
         this.fieldName = config.getString(CONFIG_FIELD);
-        this.blacklist = config.getList(CONFIG_BLACKLIST);
-        this.whitelist = config.getList(CONFIG_WHITELIST);
+        this.denylist = config.getList(CONFIG_DENYLIST);
+        this.allowlist = config.getList(CONFIG_ALLOWLIST);
     }
 
     @Override
@@ -55,9 +55,9 @@ public abstract class FilterFields<T extends ConnectRecord<T>> extends AbstractT
 
         final Map<String, Object> field = Utils.cast(transformMap.get(fieldName));
 
-        field.keySet().removeAll(blacklist);
-        if (!whitelist.isEmpty()) {
-            field.keySet().retainAll(whitelist);
+        field.keySet().removeAll(denylist);
+        if (!allowlist.isEmpty()) {
+            field.keySet().retainAll(allowlist);
         }
 
         transformMap.put(fieldName, field); //Avoids DU-anomaly PMD violation.
