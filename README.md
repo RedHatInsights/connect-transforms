@@ -1,6 +1,10 @@
+![Verify](https://github.com/RedHatInsights/connect-transforms/workflows/Verify/badge.svg)
+
 # Kafka Connect Transforms
 
 This project implements a set of generic Kafka Connect transformations that complement the [built-in transformations](https://docs.confluent.io/current/connect/transforms/index.html).
+
+The library can be downloaded from Maven central using `com.redhat.insights.kafka:connect-transforms:${version}` coordinates.
 
 ## DropIf
 
