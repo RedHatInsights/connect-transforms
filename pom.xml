@@ -4,7 +4,7 @@
 
     <groupId>com.redhat.insights.kafka</groupId>
     <artifactId>connect-transforms</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1-SNAPSHOT</version>
 
     <name>Insights Kafka Connect Transforms</name>
     <description>A set of general-purpose SMTs developed as part of Red Hat Insights</description>
@@ -33,7 +33,7 @@
         <connection>scm:git:git://github.com/RedHatInsights/connect-transforms.git</connection>
         <developerConnection>scm:git:git@github.com:RedHatInsights/connect-transforms.git</developerConnection>
         <url>https://github.com/RedHatInsights/connect-transforms</url>
-        <tag>connect-transforms-0.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
 
