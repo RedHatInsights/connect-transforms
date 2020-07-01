@@ -4,7 +4,7 @@
 
     <groupId>com.redhat.insights.kafka</groupId>
     <artifactId>connect-transforms</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.1-SNAPSHOT</version>
 
     <name>Insights Kafka Connect Transforms</name>
     <description>A set of general-purpose SMTs developed as part of Red Hat Insights</description>
@@ -194,6 +194,7 @@
                         <configuration>
                             <nohelp>true</nohelp>
                             <source>8</source>
+                            <detectJavaApiLink>false</detectJavaApiLink>
                         </configuration>
                         <executions>
                             <execution>
