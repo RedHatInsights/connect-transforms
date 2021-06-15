@@ -13,7 +13,8 @@ import java.util.Map;
 
 abstract class BooleanPredicateTransform<T extends ConnectRecord<T>> extends AbstractTransformation<T> {
     private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-    protected static final String CONFIG_FIELD = "predicate";
+    protected static final String CONFIG_FIELD_LEGACY = "predicate";
+    protected static final String CONFIG_FIELD = "if";
     private volatile String predicate;
     private volatile ScriptEngine engine;
 
@@ -24,11 +25,20 @@ abstract class BooleanPredicateTransform<T extends ConnectRecord<T>> extends Abs
     @Override
     public void configure(Map<String, ?> configs, AbstractConfig config) {
         this.predicate = config.getString(CONFIG_FIELD);
+
+        if (this.predicate == null) {
+            this.predicate = config.getString(CONFIG_FIELD_LEGACY);
+        }
+
         final ScriptEngineManager manager = new ScriptEngineManager();
         this.engine = manager.getEngineByName("JavaScript");
     }
 
     protected boolean evalPredicate(T record) {
+        if (this.predicate == null) {
+            return true;
+        }
+
         final Bindings bindings = new SimpleBindings();
         bindings.put("record", record);
 

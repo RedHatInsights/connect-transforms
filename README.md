@@ -23,7 +23,7 @@ If the predicate evaluation fails, or the predicate returns non-boolean result, 
 
 |Name|Description|Type|Default|Valid values|Importance|
 |---|---|---|---|---|---|
-|`predicate`|The predicate to be evaluated on each message|string|-|Any valid ECMAScript expression that evaluates to a boolean|HIGH
+|`if`|The predicate to be evaluated on each message|string|-|Any valid ECMAScript expression that evaluates to a boolean|HIGH
 
 ### Examples
 
@@ -32,7 +32,7 @@ Assume the following configuration:
 ```json
 "transforms": "dropValue",
 "transforms.dropValue.type":"com.redhat.insights.kafka.connect.transforms.DropIf$Value",
-"transforms.dropValue.predicate": "record.value().get('country') == 'CZ'"
+"transforms.dropValue.if": "record.value().get('country') == 'CZ'"
 ```
 
 Example 1
@@ -84,7 +84,7 @@ If the predicate evaluation fails, or the predicate returns non-boolean result, 
 
 |Name|Description|Type|Default|Valid values|Importance|
 |---|---|---|---|---|---|
-|`predicate`|The predicate to be evaluated on each message|string|-|Any valid ECMAScript expression that evaluates to a boolean|HIGH
+|`if`|The predicate to be evaluated on each message|string|-|Any valid ECMAScript expression that evaluates to a boolean|HIGH
 
 ### Examples
 
@@ -93,7 +93,7 @@ Assume the following configuration:
 ```json
 "transforms": "filter",
 "transforms.filter.type":"com.redhat.insights.kafka.connect.transforms.Filter",
-"transforms.filter.predicate": "record['value']['country'] === 'CZ'"
+"transforms.filter.if": "record['value']['country'] === 'CZ'"
 ```
 
 Example 1
