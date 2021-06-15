@@ -9,8 +9,12 @@ import org.apache.kafka.connect.connector.ConnectRecord;
 public class Filter<T extends ConnectRecord<T>> extends BooleanPredicateTransform<T> {
 
     public Filter(){
-        super(new ConfigDef().define(CONFIG_FIELD, ConfigDef.Type.STRING, ConfigDef.Importance.HIGH,
-                "ECMAScript predicate to be evaluated for each message. If the predicate evaluates to true the message is dropped."));
+        super(new ConfigDef()
+            .define(CONFIG_FIELD, ConfigDef.Type.STRING, null, ConfigDef.Importance.HIGH,
+                "ECMAScript predicate to be evaluated for each message. If the predicate evaluates to true the message is dropped.")
+            // https://cwiki.apache.org/confluence/display/KAFKA/KIP-585
+            .define(CONFIG_FIELD_LEGACY, ConfigDef.Type.STRING, null, ConfigDef.Importance.HIGH,
+                "Alias of the 'if' property. The alias exists for backward compatibility."));
     }
 
     @Override

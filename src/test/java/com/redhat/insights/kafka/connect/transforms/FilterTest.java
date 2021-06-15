@@ -27,7 +27,7 @@ public class FilterTest {
 
     @Test
     public void testPredicateMatch() {
-        final Map<String, String> props = Collections.singletonMap("predicate", "!!record.value().get('requiredFact')");
+        final Map<String, String> props = Collections.singletonMap("if", "!!record.value().get('requiredFact')");
         Map<String, Integer> value = Collections.singletonMap("requiredFact", 1);
         final SinkRecord record = new SinkRecord("test", 0, null, null, null, value, 0);
 
@@ -40,7 +40,7 @@ public class FilterTest {
 
     @Test
     public void testNegative() {
-        final Map<String, String> props = Collections.singletonMap("predicate", "!!record.value().get('requiredFact')");
+        final Map<String, String> props = Collections.singletonMap("if", "!!record.value().get('requiredFact')");
         final SinkRecord record = new SinkRecord("test", 0, null, null, null, Collections.singletonMap("otherFact", 1), 0);
 
         transform.configure(props);
@@ -52,7 +52,7 @@ public class FilterTest {
 
     @Test(expected = ConnectException.class)
     public void testExceptionThrownOnInvalidScript() {
-        final Map<String, String> props = Collections.singletonMap("predicate", "record.key(");
+        final Map<String, String> props = Collections.singletonMap("if", "record.key(");
         final SinkRecord record = new SinkRecord("test", 0, null, "key", null, "value", 0);
 
         transform.configure(props);
