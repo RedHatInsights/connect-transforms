@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import javax.script.*;
 import java.lang.invoke.MethodHandles;
 import java.util.Map;
+import org.openjdk.nashorn.api.scripting.*;
 
 abstract class BooleanPredicateTransform<T extends ConnectRecord<T>> extends AbstractTransformation<T> {
     private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -30,8 +31,8 @@ abstract class BooleanPredicateTransform<T extends ConnectRecord<T>> extends Abs
             this.predicate = config.getString(CONFIG_FIELD_LEGACY);
         }
 
-        final ScriptEngineManager manager = new ScriptEngineManager();
-        this.engine = manager.getEngineByName("JavaScript");
+        final NashornScriptEngineFactory manager = new NashornScriptEngineFactory();
+        this.engine = manager.getScriptEngine();
     }
 
     protected boolean evalPredicate(T record) {
