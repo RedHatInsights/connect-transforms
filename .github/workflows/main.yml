@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [11, 17]
     steps:
       - uses: actions/checkout@v2
 
@@ -20,10 +23,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Set up JDK 11
+      - name: Set up JDK ${{ matrix.Java }}
         uses: actions/setup-java@v1
         with:
-          java-version: 11
+          java-version: ${{ matrix.Java }}
 
       - name: Build with Maven
         run: mvn clean verify
