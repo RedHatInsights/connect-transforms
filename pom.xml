@@ -61,7 +61,7 @@
         <version.gitexe.provider>1.9.5</version.gitexe.provider>
         <version.gpg.plugin>1.6</version.gpg.plugin>
         <version.javadoc.plugin>3.2.0</version.javadoc.plugin>
-        <version.nexus.plugin>1.6.7</version.nexus.plugin>
+        <version.nexus.plugin>1.6.13</version.nexus.plugin>
         <version.pmd.plugin>3.13.0</version.pmd.plugin>
         <version.release.plugin>2.5.3</version.release.plugin>
         <version.source.plugin>3.2.0</version.source.plugin>
