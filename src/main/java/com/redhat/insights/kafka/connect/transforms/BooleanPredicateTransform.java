@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import javax.script.*;
 import java.lang.invoke.MethodHandles;
 import java.util.Map;
-import org.openjdk.nashorn.api.scripting.*;
 
 abstract class BooleanPredicateTransform<T extends ConnectRecord<T>> extends AbstractTransformation<T> {
     private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
