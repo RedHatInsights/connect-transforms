@@ -31,8 +31,8 @@ abstract class BooleanPredicateTransform<T extends ConnectRecord<T>> extends Abs
             this.predicate = config.getString(CONFIG_FIELD_LEGACY);
         }
 
-        final NashornScriptEngineFactory manager = new NashornScriptEngineFactory();
-        this.engine = manager.getScriptEngine();
+        final ScriptEngineManager manager = new ScriptEngineManager();
+        this.engine = manager.getEngineByName("JavaScript");
     }
 
     protected boolean evalPredicate(T record) {
