@@ -71,7 +71,9 @@ public abstract class InjectSchema<T extends ConnectRecord<T>> extends AbstractT
         LOG.debug("Injecting schema to record {}", record);
 
         final Object value = convertTopLevelObjectToMatchSchema(this.schema, getObject(record));
-        return newRecord(record, value, schema);
+        T updatedRecord = newRecord(record, value, schema);
+        LOG.debug("Updated record {}", updatedRecord);
+        return updatedRecord;
     }
 
     public static class Key<T extends ConnectRecord<T>> extends InjectSchema<T> implements KeyOrValueTransformation.Key<T> {}
